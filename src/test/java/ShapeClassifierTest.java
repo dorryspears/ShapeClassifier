@@ -35,4 +35,35 @@ public class ShapeClassifierTest {
         String result = s.evaluateGuess("Ellipse,Small,Yes,5,10");
         assertEquals("No: Suggestion=Ellipse", result);
     }
+    @Test
+    @DisplayName("Test evaluateGuess with four parameters (Rectangle)")
+    public void testEvaluateGuessFourParametersRectangle() {
+        ShapeClassifier s = new ShapeClassifier();
+        String result = s.evaluateGuess("Rectangle,Large,Yes,100,50,100,50");
+        assertEquals("Yes: Wrong Even/Odd", result);  // Method adds ": Wrong Even/Odd" when even/odd guess is wrong
+    }
+    
+    @Test
+    @DisplayName("Test evaluateGuess with invalid shape")
+    public void testEvaluateGuessInvalidShape() {
+        ShapeClassifier s = new ShapeClassifier();
+        String result = s.evaluateGuess("Pentagon,Small,Yes,5,5,5,5,5");
+        assertEquals("No: ", result);  // Method adds ": " for invalid shapes
+    }
+    
+    @Test
+    @DisplayName("Test evaluateGuess with three parameters (Triangle)")
+    public void testEvaluateGuessThreeParametersTriangle() {
+        ShapeClassifier s = new ShapeClassifier();
+        String result = s.evaluateGuess("Triangle,Small,Yes,5,5,5");
+        assertEquals("No: Suggestion=Equilateral", result); // Method suggests Equilateral for equal sides
+    }
+    
+    @Test
+    @DisplayName("Test evaluateGuess with empty parameters") 
+    public void testEvaluateGuessEmptyParameters() {
+        ShapeClassifier s = new ShapeClassifier();
+        String result = s.evaluateGuess("");
+        assertEquals("No", result);
+    }
 }
